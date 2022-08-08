@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
+
 import { AppComponent } from './app.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { GamePageComponent } from './pages/game-page/game-page.component';
@@ -17,6 +19,8 @@ import { GameFormComponent } from './pages/game-page/game-form/game-form.compone
 import { ButtonComponent } from './components/button/button.component';
 import { ScoreboardComponent } from './pages/game-page/scoreboard/scoreboard.component';
 import { FrameComponent } from './pages/game-page/scoreboard/frame/frame.component';
+import { ErrorInterceptor } from './interceptors/error.interceptor';
+import { ErrorPageComponent } from './pages/error-page/error-page.component';
 
 @NgModule({
     declarations: [
@@ -34,9 +38,10 @@ import { FrameComponent } from './pages/game-page/scoreboard/frame/frame.compone
         ButtonComponent,
         ScoreboardComponent,
         FrameComponent,
+        ErrorPageComponent,
     ],
-    imports: [BrowserModule, FormsModule, AppRoutingModule],
-    providers: [],
+    imports: [BrowserModule, FormsModule, AppRoutingModule, HttpClientModule],
+    providers: [{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }],
     bootstrap: [AppComponent],
 })
 export class AppModule {}

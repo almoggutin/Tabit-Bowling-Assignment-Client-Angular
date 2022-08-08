@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Score } from 'src/app/models/score.model';
 
 @Component({
     selector: 'app-scores',
@@ -6,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./scores.component.scss'],
 })
 export class ScoresComponent implements OnInit {
-    scores: any = new Array(5).fill({ name: 'almog gutin', score: 100 });
+    scores!: Score[];
 
-    constructor() {}
+    constructor(private route: ActivatedRoute) {}
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+        this.route.data.subscribe(({ scores }: any): void => {
+            this.scores = scores;
+        });
+    }
 }

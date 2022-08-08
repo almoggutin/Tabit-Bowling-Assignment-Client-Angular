@@ -13,7 +13,6 @@ export class ScoresPageComponent implements OnInit {
     ngOnInit(): void {}
 
     handleNewGame(): void {
-        this.bowlingService.initGame();
         this.router.navigate(['/']);
     }
 }

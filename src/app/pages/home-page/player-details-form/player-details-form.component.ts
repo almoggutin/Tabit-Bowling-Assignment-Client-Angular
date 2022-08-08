@@ -16,7 +16,7 @@ export class PlayerDetailsFormComponent implements OnInit {
     ngOnInit(): void {}
 
     handleSubmit(): void {
-        this.bowlingService.playerName = this.playerName;
+        this.bowlingService.playerName = this.playerName.trim();
         this.router.navigate(['/game']);
     }
 }
