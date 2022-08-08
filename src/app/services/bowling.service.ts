@@ -45,15 +45,13 @@ export class BowlingService {
 
         const currentFrame = updatedScoreboard[this.round];
         this.roll === 1
-            ? this.handleFirstRound(pins, currentFrame, prevFrame)
-            : this.handleSecondRound(pins, currentFrame, prevFrame);
-
-        if (prevFrame?.bonusType && currentFrame.bonusType !== 'STRIKE') this.updateFrameBonus(prevFrame, currentFrame);
+            ? this.handleFirstlRoll(pins, currentFrame, prevFrame)
+            : this.handleSecondRoll(pins, currentFrame, prevFrame);
 
         this._scoreboard.next(updatedScoreboard);
     }
 
-    private handleFirstRound(pins: number, currentFrame: Frame, prevFrame: Frame): void {
+    private handleFirstlRoll(pins: number, currentFrame: Frame, prevFrame: Frame): void {
         if (pins === 10) {
             this.handleStrike(pins, currentFrame, prevFrame);
 
@@ -63,22 +61,19 @@ export class BowlingService {
         currentFrame.firstRoll = pins;
 
         if (prevFrame?.bonusType) this.updateFrameBonus(prevFrame, currentFrame);
-        this.roll = 2;
+        this.roll++;
     }
 
-    private handleSecondRound(pins: number, currentFrame: Frame, prevFrame: Frame): void {
+    private handleSecondRoll(pins: number, currentFrame: Frame, prevFrame: Frame): void {
         currentFrame.secondRoll = pins;
         currentFrame.result = <number>currentFrame.firstRoll + pins;
+
+        if (prevFrame?.bonusType) this.updateFrameBonus(prevFrame, currentFrame);
 
         if (prevFrame) currentFrame.result += <number>prevFrame.result;
 
         if (<number>currentFrame.firstRoll + pins === 10) {
             currentFrame.bonusType = 'SPARE';
-        }
-
-        if (this.round === 9) {
-            this.roll++;
-            return;
         }
 
         this.roll = 1;
@@ -102,6 +97,7 @@ export class BowlingService {
         switch (prevFrame.bonusType) {
             case 'SPARE': {
                 (<number>prevFrame.result) += <number>currentFrame.firstRoll;
+
                 prevFrame.bonusType = null;
 
                 break;
@@ -111,10 +107,10 @@ export class BowlingService {
                     ? ((<number>prevFrame.result) += <number>currentFrame.firstRoll)
                     : ((<number>prevFrame.result) += <number>currentFrame.result);
 
+                if (this.roll === 2) prevFrame.bonusType = null;
+
                 break;
             }
         }
-
-        prevFrame.bonusType = null;
     }
 }
