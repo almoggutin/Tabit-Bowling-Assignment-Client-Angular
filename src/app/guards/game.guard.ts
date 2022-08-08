@@ -4,28 +4,21 @@ import { map, take, Observable } from 'rxjs';
 
 import { BowlingService } from '../services/bowling.service';
 
-// import { GameState } from '../models/game.model';
-
 @Injectable({
     providedIn: 'root',
 })
-export class AuthGuard implements CanActivate {
+export class GameGuard implements CanActivate {
     constructor(private router: Router, private bowlingService: BowlingService) {}
 
     canActivate(
         route: ActivatedRouteSnapshot,
         state: RouterStateSnapshot
     ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-        // return this.bowlingService.gameState.pipe(
-        //     take(1),
-        //     map((gameState: GameState): boolean => {
-        //         if (gameState.playerName === '') return true;
+        const playerName: string = this.bowlingService.playerName;
+        const isGameOver: boolean = this.bowlingService.isGameOver;
 
-        //         if (gameState.playerName !== '' && gameState.isGameOver) return true;
+        if (playerName === '' || isGameOver === true) return this.router.createUrlTree(['./']);
 
-        //         return false;
-        //     })
-        // );
         return true;
     }
 }

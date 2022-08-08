@@ -1,7 +1,11 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 
+import { ScoreService } from './score.service';
+
 import { Frame } from '../models/game.model';
+import { Score } from '../models/score.model';
+import { Router } from '@angular/router';
 
 @Injectable({
     providedIn: 'root',
@@ -15,7 +19,7 @@ export class BowlingService {
     private _scoreboard = new BehaviorSubject<Frame[]>([]);
     scoreboard: Observable<Frame[]> = this._scoreboard.asObservable();
 
-    constructor() {
+    constructor(private scoreService: ScoreService, private router: Router) {
         this.initGame();
     }
 
@@ -43,12 +47,29 @@ export class BowlingService {
         let prevFrame!: Frame;
         if (this.round > 0) prevFrame = updatedScoreboard[this.round - 1];
 
-        const currentFrame = updatedScoreboard[this.round];
-        this.roll === 1
-            ? this.handleFirstlRoll(pins, currentFrame, prevFrame)
-            : this.handleSecondRoll(pins, currentFrame, prevFrame);
+        const currentFrame: Frame = updatedScoreboard[this.round];
+        this.handleRoll(pins, currentFrame, prevFrame);
 
         this._scoreboard.next(updatedScoreboard);
+
+        if (this.round === 10) this.handleGameOver();
+    }
+
+    private handleRoll(pins: number, currentFrame: Frame, prevFrame: Frame): void {
+        switch (this.roll) {
+            case 1: {
+                this.handleFirstlRoll(pins, currentFrame, prevFrame);
+                break;
+            }
+            case 2: {
+                this.handleSecondRoll(pins, currentFrame, prevFrame);
+                break;
+            }
+            case 3: {
+                this.handleThirdRoll(pins, currentFrame, prevFrame);
+                break;
+            }
+        }
     }
 
     private handleFirstlRoll(pins: number, currentFrame: Frame, prevFrame: Frame): void {
@@ -76,7 +97,20 @@ export class BowlingService {
             currentFrame.bonusType = 'SPARE';
         }
 
+        if (this.round === 9 && currentFrame.bonusType) {
+            this.roll++;
+
+            return;
+        }
+
         this.roll = 1;
+        this.round++;
+    }
+
+    private handleThirdRoll(pins: number, currentFrame: Frame, prevFrame: Frame): void {
+        currentFrame.thirdRoll = pins;
+        currentFrame.result = <number>currentFrame.result + pins;
+
         this.round++;
     }
 
@@ -112,5 +146,15 @@ export class BowlingService {
                 break;
             }
         }
+    }
+
+    private handleGameOver(): void {
+        const finalScore: number = <number>this._scoreboard.value[9].result;
+
+        this.isGameOver = true;
+        alert(`Your final score is: ${finalScore}`);
+
+        this.scoreService.addScore(new Score(this.playerName, finalScore)).subscribe((res: any) => {});
+        this.router.navigate(['/scores']);
     }
 }

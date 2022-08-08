@@ -6,13 +6,13 @@ import { GamePageComponent } from './pages/game-page/game-page.component';
 import { ScoresPageComponent } from './pages/scores-page/scores-page.component';
 import { ErrorPageComponent } from './pages/error-page/error-page.component';
 
-import { AuthGuard } from './guards/auth.guard';
+import { GameGuard } from './guards/game.guard';
 import { ScoresResolver } from './resolvers/scores.resolver';
 
 const routes: Routes = [
     { path: '', component: HomePageComponent },
     { path: 'home', redirectTo: '' },
-    { path: 'game', component: GamePageComponent },
+    { path: 'game', component: GamePageComponent, canActivate: [GameGuard] },
     {
         path: 'scores',
         component: ScoresPageComponent,
@@ -25,7 +25,7 @@ const routes: Routes = [
 
 @NgModule({
     imports: [RouterModule.forRoot(routes)],
-    providers: [AuthGuard],
+    providers: [GameGuard],
     exports: [RouterModule],
 })
 export class AppRoutingModule {}
