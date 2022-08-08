@@ -1,4 +1,4 @@
-<div [ngClass]="{ 'first-roll': true, 'strike': isStrike() }">
+<div [ngClass]="{ 'first-roll': true, 'strike': isStrike() && frameIndex === 9 }">
     {{ !isStrike() ? frame.firstRoll : null }}
 </div>
 
