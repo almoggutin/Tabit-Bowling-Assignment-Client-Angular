@@ -1,0 +1,40 @@
+@use '../../../../styles' as *;
+
+:host {
+    display: block;
+
+    width: 100%;
+    max-width: 25rem;
+    height: 12rem;
+}
+
+.player-details-form {
+    @extend %flex-column-center;
+    gap: 20px;
+
+    width: 100%;
+    height: 100%;
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+
+        width: 100%;
+
+        input {
+            width: 100%;
+            height: 4rem;
+            padding: 1rem;
+
+            text-align: center;
+            font-size: 1.2rem;
+            border: none;
+            border-bottom: 2px solid $black;
+
+            &::placeholder {
+                text-align: center;
+            }
+        }
+    }
+}

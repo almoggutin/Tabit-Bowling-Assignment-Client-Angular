@@ -1,0 +1,10 @@
+@use '../../../styles' as *;
+
+:host {
+    @extend %page-size;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}

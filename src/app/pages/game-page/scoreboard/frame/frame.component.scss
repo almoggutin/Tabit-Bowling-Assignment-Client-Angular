@@ -1,0 +1,79 @@
+@use '../../../../../styles' as *;
+
+:host {
+    display: grid;
+    grid: {
+        template-columns: 1fr 2fr;
+        template-rows: repeat(2, 1fr);
+        template-areas: 'first-roll second-third-roll' 'frame-score frame-score';
+    }
+
+    width: 9rem;
+    height: 7rem;
+
+    border: 2px solid $black;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+
+    &:last-child > .second-third-roll > .second-roll {
+        width: 50%;
+
+        & > .spare {
+            border-right: 3rem solid $black;
+        }
+    }
+}
+
+.first-roll,
+.second-roll,
+.third-roll,
+.frame-score {
+    @extend %flex-center;
+}
+
+.first-roll {
+    grid-area: first-roll;
+}
+
+.second-third-roll {
+    grid-area: second-third-roll;
+
+    display: flex;
+
+    border: {
+        width: 0 0 2px 2px;
+        style: solid;
+        color: $black;
+    }
+
+    .second-roll {
+        width: 100%;
+        height: 100%;
+
+        .spare,
+        .strike {
+            width: 100%;
+            height: 100%;
+        }
+
+        & > .spare {
+            border-right: 6rem solid $black;
+            border-top: 50px solid transparent;
+        }
+
+        & > .strike {
+            background-color: $black;
+        }
+    }
+
+    .third-roll {
+        width: 50%;
+        height: 100%;
+
+        border-left: 2px solid $black;
+    }
+}
+
+.frame-score {
+    grid-area: frame-score;
+}

@@ -1,0 +1,9 @@
+@use '../../../../styles' as *;
+
+:host {
+    display: flex;
+    overflow-x: auto;
+
+    width: 100%;
+    max-width: 90rem;
+}

@@ -1,0 +1,6 @@
+@use '../../../styles' as *;
+
+:host {
+    @extend %flex-center;
+    @extend %page-size;
+}

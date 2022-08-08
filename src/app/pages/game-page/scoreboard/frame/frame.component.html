@@ -1,0 +1,14 @@
+<div class="first-roll">{{ !isStrike() ? frame.firstRoll : null }}</div>
+
+<div class="second-third-roll">
+    <div class="second-roll">
+        <div *ngIf="!isSpareOrStrike()">{{ frame.secondRoll }}</div>
+
+        <div *ngIf="isSpare()" class="spare"></div>
+        <div *ngIf="isStrike()" class="strike"></div>
+    </div>
+
+    <div *ngIf="frameIndex === 9" class="third-roll">{{ frame.thirdRoll }}</div>
+</div>
+
+<div class="frame-score">{{ frame.result }}</div>

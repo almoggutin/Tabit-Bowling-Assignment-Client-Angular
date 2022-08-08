@@ -1,0 +1,13 @@
+@use '../../../styles' as *;
+
+:host {
+    @extend %page-size;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.new-game-btn {
+    align-self: center;
+}

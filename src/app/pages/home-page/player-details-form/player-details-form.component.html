@@ -1,0 +1,15 @@
+<form #playerDetailsForm="ngForm" class="player-details-form" (ngSubmit)="handleSubmit()">
+    <div class="form-group">
+        <input
+            type="text"
+            placeholder="Enter your name here"
+            name="playerName"
+            [(ngModel)]="playerName"
+            #name="ngModel"
+            required
+        />
+        <div [hidden]="name.valid || name.pristine" class="error-message">Please enter your name</div>
+    </div>
+
+    <app-button type="submit" [disabled]="playerDetailsForm.invalid" buttonText="Start Game"></app-button>
+</form>
