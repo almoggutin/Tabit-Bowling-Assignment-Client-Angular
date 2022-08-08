@@ -14,7 +14,7 @@ export class GameFormComponent implements OnInit {
     ngOnInit(): void {}
 
     handleThrowBall(): void {
-        const pins = parseInt(this.pinsInput);
+        const pins: number = parseInt(this.pinsInput.trim());
 
         this.bowlingService.throwBall(pins);
     }

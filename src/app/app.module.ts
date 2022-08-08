@@ -21,6 +21,7 @@ import { ScoreboardComponent } from './pages/game-page/scoreboard/scoreboard.com
 import { FrameComponent } from './pages/game-page/scoreboard/frame/frame.component';
 import { ErrorInterceptor } from './interceptors/error.interceptor';
 import { ErrorPageComponent } from './pages/error-page/error-page.component';
+import { GameInputDirective } from './directives/game-input.directive';
 
 @NgModule({
     declarations: [
@@ -39,6 +40,7 @@ import { ErrorPageComponent } from './pages/error-page/error-page.component';
         ScoreboardComponent,
         FrameComponent,
         ErrorPageComponent,
+        GameInputDirective,
     ],
     imports: [BrowserModule, FormsModule, AppRoutingModule, HttpClientModule],
     providers: [{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }],

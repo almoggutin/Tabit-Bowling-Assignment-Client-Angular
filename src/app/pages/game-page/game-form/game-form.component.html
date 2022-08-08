@@ -5,12 +5,14 @@
             placeholder="Enter Number Of Pins"
             name="pinNum"
             [(ngModel)]="pinsInput"
-            #pinsNum="ngModel"
-            required
+            #pinNum="ngModel"
+            appGameInput
         />
 
-        <div [hidden]="pinsNum.valid || pinsNum.pristine" class="error-message">Please enter a number betwenn 0-10</div>
+        <div class="error-message">
+            {{ pinNum.getError('gameInput') }}
+        </div>
     </div>
 
-    <app-button type="submit" [disabled]="gameForm.invalid" buttonText="Knock Pins"></app-button>
+    <app-button type="submit" [disabled]="!gameForm.valid || !gameForm.dirty" buttonText="Knock Pins"></app-button>
 </form>

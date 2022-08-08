@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 import { ScoreService } from './score.service';
 
 import { Frame } from '../models/game.model';
 import { Score } from '../models/score.model';
-import { Router } from '@angular/router';
 
 @Injectable({
     providedIn: 'root',

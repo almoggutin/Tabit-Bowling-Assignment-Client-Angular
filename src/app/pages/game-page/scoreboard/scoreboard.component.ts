@@ -22,7 +22,6 @@ export class ScoreboardComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         this.scoreboardSub = this.bowlingService.scoreboard.subscribe((scoreboard: Frame[]): void => {
             this.scoreboard = scoreboard;
-            console.log(this.scoreboard);
         });
     }
 
