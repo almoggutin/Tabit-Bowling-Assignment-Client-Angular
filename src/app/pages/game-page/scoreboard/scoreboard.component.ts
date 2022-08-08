@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { BowlingService } from 'src/app/services/bowling.service';
+import { GameService } from 'src/app/services/game.service';
 
 import { Frame } from 'src/app/models/game.model';
 
@@ -17,10 +17,10 @@ export class ScoreboardComponent implements OnInit, OnDestroy {
     scoreboard: any = [];
     round = 0;
 
-    constructor(private bowlingService: BowlingService) {}
+    constructor(private gameService: GameService) {}
 
     ngOnInit(): void {
-        this.scoreboardSub = this.bowlingService.scoreboard.subscribe((scoreboard: Frame[]): void => {
+        this.scoreboardSub = this.gameService.scoreboard.subscribe((scoreboard: Frame[]): void => {
             this.scoreboard = scoreboard;
         });
     }

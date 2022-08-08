@@ -1,4 +1,6 @@
-<div class="first-roll">{{ !isStrike() ? frame.firstRoll : null }}</div>
+<div [ngClass]="{ 'first-roll': true, 'strike': isStrike() }">
+    {{ !isStrike() ? frame.firstRoll : null }}
+</div>
 
 <div class="second-third-roll">
     <div class="second-roll">

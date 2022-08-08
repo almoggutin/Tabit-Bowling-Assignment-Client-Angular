@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { BowlingService } from 'src/app/services/bowling.service';
+import { GameService } from 'src/app/services/game.service';
 @Component({
     selector: 'app-home-page',
     templateUrl: './home-page.component.html',
     styleUrls: ['./home-page.component.scss'],
 })
 export class HomePageComponent implements OnInit {
-    constructor(private bowlingService: BowlingService) {}
+    constructor(private gameService: GameService) {}
 
     ngOnInit(): void {
-        this.bowlingService.initGame();
+        this.gameService.initGame();
     }
 }

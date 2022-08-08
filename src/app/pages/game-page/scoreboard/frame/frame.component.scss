@@ -35,6 +35,10 @@
     grid-area: first-roll;
 }
 
+.strike {
+    background-color: $black;
+}
+
 .second-third-roll {
     grid-area: second-third-roll;
 
@@ -59,10 +63,6 @@
         & > .spare {
             border-right: 6rem solid $black;
             border-top: 50px solid transparent;
-        }
-
-        & > .strike {
-            background-color: $black;
         }
     }
 

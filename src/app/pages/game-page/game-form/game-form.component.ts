@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BowlingService } from 'src/app/services/bowling.service';
+import { GameService } from 'src/app/services/game.service';
 
 @Component({
     selector: 'app-game-form',
@@ -9,13 +9,13 @@ import { BowlingService } from 'src/app/services/bowling.service';
 export class GameFormComponent implements OnInit {
     pinsInput: string = '';
 
-    constructor(private bowlingService: BowlingService) {}
+    constructor(private gameService: GameService) {}
 
     ngOnInit(): void {}
 
     handleThrowBall(): void {
         const pins: number = parseInt(this.pinsInput.trim());
 
-        this.bowlingService.throwBall(pins);
+        this.gameService.throwBall(pins);
     }
 }

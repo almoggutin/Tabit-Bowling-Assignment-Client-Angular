@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { BowlingService } from 'src/app/services/bowling.service';
+import { GameService } from 'src/app/services/game.service';
 
 @Component({
     selector: 'app-player-details-form',
@@ -11,12 +11,12 @@ import { BowlingService } from 'src/app/services/bowling.service';
 export class PlayerDetailsFormComponent implements OnInit {
     playerName: string = '';
 
-    constructor(private router: Router, private bowlingService: BowlingService) {}
+    constructor(private router: Router, private gameService: GameService) {}
 
     ngOnInit(): void {}
 
     handleSubmit(): void {
-        this.bowlingService.playerName = this.playerName.trim();
+        this.gameService.playerName = this.playerName.trim();
         this.router.navigate(['/game']);
     }
 }

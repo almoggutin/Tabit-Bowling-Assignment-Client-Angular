@@ -1,4 +1,4 @@
-import { Component, DoCheck, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 import { Frame } from 'src/app/models/game.model';
 
@@ -26,6 +26,10 @@ export class FrameComponent implements OnInit {
     }
 
     isStrike(): boolean {
-        return this.frame.firstRoll === 10;
+        return (
+            (this.frameIndex < 9 && this.frame.firstRoll === 10) ||
+            (this.frameIndex === 9 &&
+                (this.frame.firstRoll === 10 || this.frame.secondRoll === 10 || this.frame.thirdRoll === 10))
+        );
     }
 }
